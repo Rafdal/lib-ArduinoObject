@@ -90,9 +90,21 @@ public:
 
 
     uint8_t size() { return buf_size_max; } // Size of buffer
-    
     uint8_t length() { return elements; } // Amount of elements
+    
     uint8_t data(uint8_t _idx);
+
+    // True si el formato coincide
+    bool checkIntegrity(format_t format){
+        for (uint8_t i = 0; i < elements; i++)
+        {
+            if (_readBuffer(i) != format[i])
+            {
+                return false;
+            }
+        }
+        return elements == sizeof((uint8_t*)format);
+    }
 
     void clear();
 
